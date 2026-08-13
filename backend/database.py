@@ -10,6 +10,13 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 # The /data directory maps to a persistent disk so the DB survives redeploys.
 # Locally this defaults to ./zoom_clone.db in the backend/ directory.
 _db_path = os.getenv("DATABASE_URL", "./zoom_clone.db")
+
+# Create the parent directory if it doesn't exist yet.
+# This is critical on Render where /data is a mounted disk that may not
+# have been provisioned before the first deploy runs.
+_db_dir = os.path.dirname(os.path.abspath(_db_path))
+os.makedirs(_db_dir, exist_ok=True)
+
 DATABASE_URL = f"sqlite:///{_db_path}"
 
 engine = create_engine(
