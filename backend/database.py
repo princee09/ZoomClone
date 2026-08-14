@@ -17,7 +17,8 @@ _db_path = os.getenv("DATABASE_URL", "./zoom_clone.db")
 _db_dir = os.path.dirname(os.path.abspath(_db_path))
 try:
     os.makedirs(_db_dir, exist_ok=True)
-except PermissionError:
+except (PermissionError, OSError):
+    # /data doesn't exist on Render free tier — fall back to local directory
     _db_path = "./zoom_clone.db"
 
 DATABASE_URL = f"sqlite:///{_db_path}"
