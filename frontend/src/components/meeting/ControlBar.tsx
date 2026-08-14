@@ -112,16 +112,7 @@ export default function ControlBar({
           <span className="text-[10px] font-medium text-white">Participants</span>
         </button>
 
-        {/* ── Chat (inert) ── */}
-        <button
-          onClick={() => alert("Chat is not available in this demo")}
-          className="flex flex-col items-center gap-1 px-4 py-2 rounded-xl bg-[#3A3A3E] hover:bg-[#4A4A4E] transition-all duration-150"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-          <span className="text-[10px] font-medium text-white">Chat</span>
-        </button>
+
 
         {/* ── Share Screen (wired to real screen share) ── */}
         <button

@@ -504,6 +504,16 @@ export function useWebRTC(
     videoTrack.enabled = newVideoOn;
     setIsVideoOn(newVideoOn);
 
+    // When turning video back ON, force a fresh stream reference so the
+    // <video> element re-attaches srcObject and starts rendering frames again.
+    // Simply flipping track.enabled is not enough — the video element may
+    // stay black because it cached the "no frames" state.
+    if (newVideoOn) {
+      const refreshed = new MediaStream(stream.getTracks());
+      localStreamRef.current = refreshed;
+      setLocalStream(refreshed);
+    }
+
     socketRef.current.emit("media_state_changed", {
       meeting_code: meetingCode,
       is_muted: isMuted,
